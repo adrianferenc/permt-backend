@@ -218,7 +218,7 @@ async function buyAPermit(plateNo) {
     const cookie = await customerAccessLoginAction();
     await accountSummaryRequestAction(cookie);
     const freePermit = await accountSummaryAction('permitSummary0', cookie);
-    const isFreePermit = freePermit.includes('Assign a Plate');
+    const isFreePermit = freePermit.data.includes('Assign a Plate');
 
     if (!isFreePermit) {
         //This adds a permit to the cart
