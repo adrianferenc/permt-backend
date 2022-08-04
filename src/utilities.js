@@ -234,7 +234,6 @@ async function buyAPermit(plateNo) {
     const end = res.data.indexOf('Assign a Plate');
     const start = res.data.slice(0, end).lastIndexOf(`22V`);
     const permitNumber = res.data.slice(start, start + 9);
-    console.log('it looks like the permit number your tryin is', permitNumber);
 
     //This updates the plate of the most recent permit to plateNo
     await addPlate(permitNumber, plateNo, cookie);
