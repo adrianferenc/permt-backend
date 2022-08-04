@@ -20,8 +20,7 @@ app.get('/test', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    console.log('someone has made a post request');
-    console.log(req.body);
+    console.log(`someone has made a post request with plate ${req.body?.plateNo || 'N/A'}`);
     if ('plateNo' in req.body) {
         permitControllers.buyAPermit(req.body.plateNo).then((success) => {
             if (success) {
