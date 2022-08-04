@@ -216,9 +216,11 @@ async function addPlate(permitNumber, plateNumber, cookie) {
 async function buyAPermit(plateNo) {
     //This logs in
     const cookie = await customerAccessLoginAction();
+    console.log(`logged in with cookie ${cookie}`);
     await accountSummaryRequestAction(cookie);
     const freePermit = await accountSummaryAction('permitSummary0', cookie);
     const isFreePermit = freePermit.data.includes('Assign a Plate');
+    console.log(`There is ${isFreePermit ? '' : ' not'} a free permit available.`);
 
     if (!isFreePermit) {
         //This adds a permit to the cart
@@ -227,6 +229,7 @@ async function buyAPermit(plateNo) {
 
         //This gets a new permit
         await rppPermitOrderVerifyAction(cookie);
+        console.log('created a new permit');
     }
 
     //This gets the name of the most recently obtained permit
@@ -241,7 +244,13 @@ async function buyAPermit(plateNo) {
     //This checks that plateNo has been added
     await accountSummaryRequestAction(cookie);
     const res2 = await accountSummaryAction('permitSummary0', cookie);
-    console.log(res2.data.includes(plateNo.toUpperCase()));
+    console.log();
+
+    console.log(
+        res2.data.includes(plateNo.toUpperCase())
+            ? `Permit ${permitNumber} updated with plate number ${plateNo}`
+            : `Something has gone wrong in adding plate number ${plateNo} to ${permitNumber}`
+    );
     return res2.data.includes(plateNo.toUpperCase());
 }
 
