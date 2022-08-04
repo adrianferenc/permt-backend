@@ -217,18 +217,22 @@ async function buyAPermit(plateNo) {
     //This logs in
     const cookie = await customerAccessLoginAction();
     await accountSummaryRequestAction(cookie);
-    await accountSummaryAction('permitSummary0', cookie);
+    const freePermit = await accountSummaryAction('permitSummary0', cookie);
+    const isFreePermit = freePermit.includes('Assign a Plate');
 
-    //This adds a permit to the cart
-    await rppPermitOrderAction('addtocart', cookie);
-    await rppPermitOrderAction('checkout', cookie);
+    if (!isFreePermit) {
+        //This adds a permit to the cart
+        await rppPermitOrderAction('addtocart', cookie);
+        await rppPermitOrderAction('checkout', cookie);
 
-    //This gets a new permit
-    await rppPermitOrderVerifyAction(cookie);
+        //This gets a new permit
+        await rppPermitOrderVerifyAction(cookie);
+    }
 
     //This gets the name of the most recently obtained permit
     const res = await accountSummaryAction('permitSummary0', cookie);
-    const start = res.data.lastIndexOf(`22V`);
+    const end = res.data.indexOf('Assign a Plate');
+    const start = res.data.slice(end).lastIndexOf(`22V`);
     const permitNumber = res.data.slice(start, start + 9);
 
     //This updates the plate of the most recent permit to plateNo
