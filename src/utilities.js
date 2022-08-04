@@ -10,7 +10,7 @@ async function customerAccessLoginAction() {
         const res = await axios({
             method: 'POST',
             url: 'https://prdwmq.etimspayments.com/pbw/customerAccessLoginAction.doh',
-            data: `clientcode=1W&clientAccount=5&requestType=signin&loginAttemptCount=0&parking=&processType=RPP&userName=adrianferenc%40gmail.com&password=${process.env.PW}&signin=Sign+In`,
+            data: `clientcode=1W&clientAccount=5&requestType=signin&loginAttemptCount=0&parking=&processType=RPP&userName=${process.env.EMAIL}&password=${process.env.PW}&signin=Sign+In`,
             headers: {
                 accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'accept-encoding': 'gzip, deflate, br',
@@ -45,7 +45,7 @@ async function accountSummaryRequestAction(cookie) {
         const res = await axios({
             method: 'POST',
             url: 'https://prdwmq.etimspayments.com/pbw/accountSummaryRequestAction.doh',
-            data: `clientcode=1W&clientAccount=5&userName=adrianferenc%40gmail.com&requestType=permitaccountdetails&processType=RPP`,
+            data: `clientcode=1W&clientAccount=5&userName=${process.env.EMAIL}&requestType=permitaccountdetails&processType=RPP`,
             headers: {
                 accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'accept-encoding': 'gzip, deflate, br',
@@ -76,7 +76,7 @@ async function accountSummaryAction(action, cookie) {
         const res = await axios({
             method: 'POST',
             url: 'https://prdwmq.etimspayments.com/pbw/accountSummaryAction.doh',
-            data: `clientcode=1W&clientAccount=5&userName=adrianferenc%40gmail.com&requestType=${action}&processType=RPP`,
+            data: `clientcode=1W&clientAccount=5&userName=${process.env.EMAIL}&requestType=${action}&processType=RPP`,
             headers: {
                 accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'accept-encoding': 'gzip, deflate, br',
@@ -187,7 +187,7 @@ async function addPlate(permitNumber, plateNumber, cookie) {
         const res = await axios({
             method: 'POST',
             url: 'https://prdwmq.etimspayments.com/pbw/accountSummaryAction.doh',
-            data: `clientcode=1W&clientAccount=5&userName=adrianferenc%40gmail.com&requestType=permitUpdate&processType=RPP&accountNo=050329&lastName=ADRIAN+FERENC%2FCOREY+FETZER&permit=${permitNumber}&select=update&plateState=CA&newPlate=${plateNumber}&confirmPlate=${plateNumber}`,
+            data: `clientcode=1W&clientAccount=5&userName=${process.env.EMAIL}&requestType=permitUpdate&processType=RPP&accountNo=050329&lastName=ADRIAN+FERENC%2FCOREY+FETZER&permit=${permitNumber}&select=update&plateState=CA&newPlate=${plateNumber}&confirmPlate=${plateNumber}`,
             headers: {
                 accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'accept-encoding': 'gzip, deflate, br',
