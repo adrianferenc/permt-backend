@@ -23,7 +23,6 @@ app.post('/', function (req, res) {
     console.log(`someone has made a post request with plate ${req.body?.plateNo || 'N/A'}`);
     if ('plateNo' in req.body) {
         permitControllers.buyAPermit(req.body.plateNo).then((success) => {
-            console.log('suc', success);
             if (success) {
                 res.status(200).json({ working: true });
             } else {
