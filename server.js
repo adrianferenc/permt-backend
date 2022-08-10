@@ -22,13 +22,15 @@ app.get('/test', function (req, res) {
 app.post('/', function (req, res) {
     console.log(`someone has made a post request with plate ${req.body?.plateNo || 'N/A'}`);
     if ('plateNo' in req.body) {
-        permitControllers.buyAPermit(req.body.plateNo).then((success) => {
-            if (success) {
-                res.status(200).json({ working: true });
-            } else {
-                res.status(400).json({ working: false });
-            }
-        });
+        permitControllers
+            .buyAPermit(req.body.plateNo.replace(/<|>/g, '').slice(0, 8))
+            .then((success) => {
+                if (success) {
+                    res.status(200).json({ working: true });
+                } else {
+                    res.status(400).json({ working: false });
+                }
+            });
     } else {
         res.status(401).json({ working: false });
     }
